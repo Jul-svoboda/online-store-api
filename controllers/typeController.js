@@ -27,13 +27,13 @@ class TypeController { //создаем клас для группировки
     }
 
     async delete(req, res, next) {
-        const {id} = req.params; //получаем запрошенный айди
-        const type = await Type.findOne({where: {id}});
-        if (!type) {
-            return next(ApiError.notFound('такого типа нет'))
-        }
-        await type.destroy(); //удаляем тип из базы данны
-        return res.json('тип удален')
+        // const {id} = req.params; //получаем запрошенный айди
+        // const type = await Type.findOne({where: {id}});
+        // if (!type) {
+        //     return next(ApiError.notFound('такого типа нет'))
+        // }
+        // await type.destroy(); //удаляем тип из базы данны
+        // return res.json('тип удален')
     }
 }
 

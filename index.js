@@ -6,12 +6,14 @@ const cors = require('cors')//импорт для Middleware (промежуто
 const fileUpload = require('express-fileupload') //необходимый пакет для загрузки файлов, картинок для товара
 const router = require('./routes/index') //импорт основного роутера
 const errorHandler = require('./middleware/ErrorHandlingMiddleware') //импортируем хэндлер ошибки
+const path = require('path') //путь до папки со статикой
 
 const PORT = process.env.PORT || 5000
 
 const app = express() //вызов функции express и подключение app, в нем сервер http на базе Node.js
 app.use(cors()) //добавляет правильные заголовки в ответ сервера
 app.use(express.json()) //для возможности парсинга джсон формата во фронте
+app.use(express.static(path.resolve(__dirname, 'static' ))) //явно указываем сервиру, что файлы из папки статик раздавать как статику
 app.use(fileUpload({})) //подключаем для работы с файлами
 app.use('/api', router)
 

@@ -20,7 +20,7 @@ const BasketItem = sequelize.define('basket_item', {
 })
 
 //модель одного товара
-const Item = sequelize.define('basket_item', {
+const Item = sequelize.define('item', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}, //числовой тип, первичный ключ, при создании нового объекта увелич
     name: {type: DataTypes.STRING, unique: true, allowNull: false}, //уникальное и не может быть пустым
     price: {type: DataTypes.INTEGER, allowNull: false},
@@ -78,10 +78,10 @@ Item.belongsTo(Brand)
 Item.hasMany(Rating)
 Rating.belongsTo(Item)
 
-Item.hasOne(BasketItem)
+Item.hasMany(BasketItem)
 BasketItem.belongsTo(Item)
 
-Item.hasOne(ItemInfo)
+Item.hasMany(ItemInfo, {as: 'info'})
 ItemInfo.belongsTo(Item)
 
 Type.belongsToMany(Brand, {through: TypeBrand}) //Brand и Type связаны друг с другом много ко многим, поэтому нужна промежуточная таблица
