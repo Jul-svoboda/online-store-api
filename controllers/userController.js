@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const {User, Basket} = require('../models/models')
 
+
 const generateJwt = (id, email, role) => {
     return jwt.sign({id, email, role},
         process.env.SECRET_KEY,
@@ -42,11 +43,8 @@ class UserController { //создаем клас для группировки, 
     }
 
     async check(req, res, next) { //request → входящие данные, response → ответ клиенту next передаем ошибку
-        const {id} = req.query //свойство query в express позволяет получитьт доступ к параметрам строки запроса (query string) из URL входящего HTTP-запроса
-        if (!id) {
-            return next(ApiError.badRequest('нет id'))
-        }
-        res.json(id)
+        const token = generateJwt(req.user.id, req.user.email, req.user.role)
+        return res.json({token})
     }
 
     async delete(req, res, next) { //request → входящие данные, response → ответ клиенту next передаем ошибку
