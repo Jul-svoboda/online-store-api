@@ -6,7 +6,8 @@ const {Item, ItemInfo, Type, Brand} = require('../models/models')
 class ItemController { //создаем клас для группировки
     async create(req, res, next) {
         try {
-            const {name, price, brandId, typeId, info} = req.body //получаем основную информацию из тела запроса
+            const {name, price, brandId, typeId} = req.body //получаем основную информацию из тела запроса
+            let {info} = req.body
             const {img} = req.files //получаем файл картинки из файла запроса
             if (!req.files || !req.files.img) {
                 return next(ApiError.notFound('файл изображения не передан'))
