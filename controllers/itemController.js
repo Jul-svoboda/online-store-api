@@ -2,19 +2,21 @@ const ApiError = require('../error/ApiError')
 const uuid = require('uuid') //необходимый пакет для генерации уникального имени
 const path = require('path') //необходимый модуль для удобного указания пути и перемещения файлов
 const {Item, ItemInfo, Type, Brand} = require('../models/models')
+const cloudinary = require('../cloudinary')
 
 class ItemController { //создаем клас для группировки
     async create(req, res, next) {
         try {
             const {name, price, brandId, typeId} = req.body //получаем основную информацию из тела запроса
             let {info} = req.body
-            const {img} = req.files //получаем файл картинки из файла запроса
             if (!req.files || !req.files.img) {
                 return next(ApiError.notFound('файл изображения не передан'))
             }
-            let fileName = uuid.v4() + ".jpg" //генерируем уникальное имя для загруженного файла с нужным расширением
-            img.mv(path.resolve(__dirname, '..', 'static', fileName)) //пишем путь, чтобы сервер данные отдавал как статику для получения их браузером, тут метод resolve адаптирует указанный путь к ОС
-            const item = await Item.create({name, price, brandId, typeId, img: fileName}) //создаем элемент, тут у него появляется айди, как картинку передаем сгенерированное нами имя файла
+            // let fileName = uuid.v4() + ".jpg" //генерируем уникальное имя для загруженного файла с нужным расширением
+            // img.mv(path.resolve(__dirname, '..', 'static', fileName)) //пишем путь, чтобы сервер данные отдавал как статику для получения их браузером, тут метод resolve адаптирует указанный путь к ОС
+            const {img} = req.files //получаем файл картинки из файла запроса
+            const result = await cloudinary.uploader.upload(img.tempFilePath, {folder: 'shop'}) //для прода загружаем изображения в Cloudinary
+            const item = await Item.create({name, price, brandId, typeId, img: result.secure_url}) //создаем элемент, тут у него появляется айди, как картинку передаем ссфлку на нее в клауди
             
             if (info) {
                 info = JSON.parse(info) //парсим обратно из джисон строки в объект js
