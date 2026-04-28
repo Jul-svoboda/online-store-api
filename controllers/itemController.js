@@ -17,7 +17,9 @@ class ItemController { //создаем клас для группировки
             const {img} = req.files //получаем файл картинки из файла запроса
             const result = await cloudinary.uploader.upload(img.tempFilePath, {folder: 'shop'}) //для прода загружаем изображения в Cloudinary
             const item = await Item.create({name, price, brandId, typeId, img: result.secure_url}) //создаем элемент, тут у него появляется айди, как картинку передаем ссфлку на нее в клауди
-            
+            console.log('FILES:', req.files)
+            console.log('TEMP PATH:', req.files?.img?.tempFilePath)
+
             if (info) {
                 info = JSON.parse(info) //парсим обратно из джисон строки в объект js
                 info.forEach(i => 
