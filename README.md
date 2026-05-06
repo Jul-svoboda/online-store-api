@@ -20,8 +20,15 @@ The system includes role-based access (currently unified as ADMIN for demonstrat
 - JWT Authentication
 - bcrypt
 
-### Deployment
-- :contentReference[oaicite:0]{index=0} (frontend + backend + database)
+## Live Demo
+
+Frontend:
+
+[Live](https://online-store-api-frontend.onrender.com/) | [GitHub](https://github.com/Jul-svoboda/online-store-api-frontend.git)
+
+Backend API:
+
+[Live](https://online-store-api-n0ix.onrender.com) | [GitHub](https://github.com/Jul-svoboda/online-store-api.git)
 
 ## Architecture
 
@@ -92,6 +99,6 @@ Body:
 
 ## Deployment
 
-- Backend: hosted on :contentReference[oaicite:1]{index=1}
-- Frontend: deployed as static site
-- Database: PostgreSQL instance on :contentReference[oaicite:2]{index=2}
+- Backend: hosted on [Render](https://render.com/): https://online-store-api-n0ix.onrender.com
+- Frontend: deployed as static site [Render](https://render.com/): https://online-store-api-frontend.onrender.com/
+- Database: PostgreSQL instance on  [Render](https://render.com/)
